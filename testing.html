@@ -264,7 +264,6 @@
 </div>
 <script src="testing.js"></script>
 
-<script>
 document.addEventListener("DOMContentLoaded", function () {
     const departmentDropdown = document.getElementById('department-dropdown');
     const concernDepartmentDropdown = document.getElementById('concern-department-dropdown');
@@ -272,9 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadOptions(file, dropdown, label) {
         fetch(file)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${file}`);
-                }
+                if (!response.ok) throw new Error(`Failed to load ${file}`);
                 return response.text();
             })
             .then(text => {
@@ -293,23 +290,21 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Load departments from local files
     loadOptions('departments.txt', departmentDropdown, 'Department');
     loadOptions('concern_departments.txt', concernDepartmentDropdown, 'Concern Department');
-});
-</script>
 
-
-
-    
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const mobileInput = document.querySelector("input[name='mobile']");
-    mobileInput.addEventListener("input", function() {
+    // Mobile validation
+    const mobileInput = document.querySelector("input[name='Mobile']");
+    mobileInput.addEventListener("input", function () {
         if (this.value.length > 10) {
             this.value = this.value.slice(0, 10);
         }
     });
+});
+
+
+
+    
 });
 </script>
 </body>
