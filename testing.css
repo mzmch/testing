@@ -1,92 +1,323 @@
+/* General Reset & Layout */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #004d40, #607d8b);
-    padding: 40px;
-    color: #ffffff;
-}
-.form-wrapper {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 900px;
-    margin: auto;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-}
-h1, h2 {
-    color: #ffffff;
-    border-bottom: 1px solid #ffffff33;
-    padding-bottom: 5px;
-    margin-top: 30px;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-td {
-    padding: 8px;
-    vertical-align: top;
-}
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    color: #ffffff;
-}
-input, textarea {
-    width: 95%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ffffff44;
-    font-size: 1rem;
-    background-color: #2e3d3d;
-    color: #ffffff;
-}
-textarea {
-    resize: vertical;
-}
-input[readonly] {
-    background-color: #374b4b;
-    color: #b5ffbe;
-}
-button {
-    background-color: #388e3c;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-button:hover {
-    background-color: #4caf50;
-}
-#status {
-    margin-top: 10px;
-    font-style: italic;
-}
-#progress-bar-container {
-    width: 100%;
-    background-color: #ddd;
-    margin-top: 20px;
-    display: none; /* Hidden by default */
-    border-radius: 5px; /* Optional: for rounded corners */
-    overflow: hidden; /* To contain the animation within the rounded corners */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #004d1a;
+  color: #333;
 }
 
-#progress-bar {
-    height: 20px;
-    background: linear-gradient(to right, #8bc34a, #4caf50, #8bc34a); /* Green gradient */
-    color: white;
-    text-align: center;
-    line-height: 20px;
-    width: 0%;
-    border-radius: 5px; /* Match container border-radius */
-    animation: progress-animation 1.5s linear infinite; /* Apply animation */
+/* Top Navigation Bar */
+.top-navbar {
+  background-color: #1b5e20;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-@keyframes progress-animation {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+.top-menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.top-menu li {
+  position: relative;
+}
+
+.top-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: block;
+}
+
+.top-menu a:hover {
+  background-color: #2e7d32;
+  border-radius: 4px;
+}
+
+/* Submenu */
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #388e3c;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.submenu li a {
+  padding: 10px;
+  color: white;
+}
+
+.submenu li a:hover {
+  background-color: #2e7d32;
+}
+
+/* User Info and Logout */
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9em;
+}
+
+.logout-button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #b71c1c;
+}
+
+/* Header Section */
+.page-header {
+  background-color: #e8f5e9;
+  padding: 30px 20px 10px;
+  text-align: center;
+}
+
+.page-header h1 {
+  color: #1b5e20;
+  font-size: 2em;
+  margin: 0;
+}
+
+.page-header p {
+  color: #388e3c;
+  font-size: 1.2em;
+  margin: 5px 0 0;
+}
+
+/* Content Area */
+.content {
+  background-color: #f5fff5;
+  padding: 30px 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter Section */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filter-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: white;
+}
+
+.filter-container select,
+.filter-container input[type="date"] {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Container */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+/* Table Styles */
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: auto;
+}
+
+.status-table th,
+.status-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  background-color: #fff;
+}
+
+.status-table th {
+  background-color: #1b5e20;
+  color: white;
+}
+
+/* Status Row Coloring */
+.status-approved td,
+.status-approved {
+  background-color: green;
+  color: white;
+}
+
+.status-rejected td,
+.status-rejected {
+  background-color: red;
+  color: white;
+}
+
+.status-waiting td,
+.status-waiting {
+  background-color: white;
+  color: black;
+}
+
+/* Spinner */
+.spinner-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #4caf50;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  display: none; /* Keep hidden initially */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Style the actual modal */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: block; /* Make sure modal is visible */
+  position: relative;
+}
+
+.popup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border: 1px solid #ccc; /* Border around table */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.popup-table td:first-child {
+  font-weight: bold;
+  color: #1b5e20;
+  width: 40%;
+  background-color: #e0f2f1;
+  padding: 12px;
+  border-right: 2px solid #ccc; /* Border between label and value */
+}
+
+.popup-table td:last-child {
+  padding: 12px;
+  border-left: 2px solid #ccc; /* Border between label and value */
+}
+
+.popup-table .highlight-field td {
+  background-color: #2e7d32 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.popup-table .current-status-highlight td {
+  background-color: #2e7d32;
+  color: white;
+  font-weight: bold;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+.close-btn:hover {
+  background: #d32f2f;
+}
+
+.popup-content {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.highlight-field {
+  background-color: #f0f8ff;
+}
+
+.current-status-highlight {
+  background-color: #ffeb3b;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal {
+    padding: 16px;
+  }
 }
