@@ -263,74 +263,45 @@
 </form>
 </div>
 <script src="testing.js"></script>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Display logged-in user email
-        const loggedInUser = localStorage.getItem('user');
-        const userEmailDisplay = document.getElementById('user-email-display');
-        const emailField = document.getElementById('user-email');
+document.addEventListener("DOMContentLoaded", function () {
+    const departmentDropdown = document.getElementById('department-dropdown');
+    const concernDepartmentDropdown = document.getElementById('concern-department-dropdown');
 
-        if (loggedInUser) {
-            const user = JSON.parse(loggedInUser);
-            userEmailDisplay.textContent = `Logged in as: ${user.email}`;
-            emailField.value = user.email;
-        } else {
-            // Redirect to login if no user is logged in (optional, depending on your flow)
-            window.location.href = 'index.html';
-        }
-
-        // Try to use Google identity API or fallback
-        try {
-            google.accounts.id.initialize({
-                client_id: "YOUR_GOOGLE_CLIENT_ID",
-                callback: (response) => {
-                    const decoded = JSON.parse(atob(response.credential.split('.')[1]));
-                    if (!emailField.value) { // Only fill if not already filled from local storage
-                        emailField.value = decoded.email;
-                    }
+    function loadOptions(file, dropdown, label) {
+        fetch(file)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${file}`);
                 }
-            });
-            google.accounts.id.prompt();
-        } catch (e) {
-            if (!emailField.value) {
-                emailField.placeholder = "Enter email manually if not autofilled.";
-            }
-        }
-
-        // Fetch department and concern department data
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwHSN9JXJksgUCneZYBBP1DcrMQ0mCqslRW726Bwkb5p2buAZjSNqS9O-qz9MoDrbtm/exec'; // Make sure this is correct
-        const departmentDropdown = document.getElementById('department-dropdown');
-        const concernDepartmentDropdown = document.getElementById('concern-department-dropdown');
-
-        fetch(scriptURL + '?action=getDropdownData')
-            .then(response => response.json())
-            .then(data => {
-                // Clear the initial "Loading..." options
-                departmentDropdown.innerHTML = '<option value="" disabled selected>Select Department</option>';
-                concernDepartmentDropdown.innerHTML = '<option value="" disabled selected>Select Concern Department</option>';
-
-                data.departments.forEach(department => {
+                return response.text();
+            })
+            .then(text => {
+                const lines = text.trim().split('\n');
+                dropdown.innerHTML = `<option value="" disabled selected>Select ${label}</option>`;
+                lines.forEach(line => {
                     const option = document.createElement('option');
-                    option.value = department;
-                    option.textContent = department;
-                    departmentDropdown.appendChild(option);
-                });
-
-                data.concernDepartments.forEach(concernDepartment => {
-                    const option = document.createElement('option');
-                    option.value = concernDepartment;
-                    option.textContent = concernDepartment;
-                    concernDepartmentDropdown.appendChild(option);
+                    option.value = line.trim();
+                    option.textContent = line.trim();
+                    dropdown.appendChild(option);
                 });
             })
             .catch(error => {
-                console.error("Error fetching dropdown data:", error);
-                departmentDropdown.innerHTML = '<option value="" disabled selected>Failed to load</option>';
-                concernDepartmentDropdown.innerHTML = '<option value="" disabled selected>Failed to load</option>';
-                status.innerText = "Failed to load department options.";
+                console.error(error);
+                dropdown.innerHTML = `<option value="" disabled selected>Failed to load ${label}</option>`;
             });
-    });
+    }
+
+    // Load departments from local files
+    loadOptions('departments.txt', departmentDropdown, 'Department');
+    loadOptions('concern_departments.txt', concernDepartmentDropdown, 'Concern Department');
+});
 </script>
+
+
+
+    
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const mobileInput = document.querySelector("input[name='mobile']");
